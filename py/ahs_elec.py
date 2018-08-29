@@ -3,7 +3,7 @@
 try:
     import argparse
     import pandas as pd
-    from bacnet_gateway_requests import get_value_and_units
+    from bacnet_gateway_requests import get_bacnet_value
 
     # Get hostname and port of BACnet Gateway
     parser = argparse.ArgumentParser( description='Test BACnet Gateway', add_help=False )
@@ -15,7 +15,7 @@ try:
     # Each row contains the following:
     #   - Feeder
     #   - Instance ID of electric meter
-    df = pd.read_csv( 'csv/ahs_elec.csv' )
+    df = pd.read_csv( '../csv/ahs_elec.csv' )
 
     # Output column headings
     print( 'Feeder,Meter,Units' )
@@ -23,7 +23,7 @@ try:
     # Iterate over the rows of the dataframe, getting meter readings for each feeder
     for index, row in df.iterrows():
         # Retrieve data
-        value, units = get_value_and_units( row['Facility'], row['Meter'], args.hostname, args.port )
+        value, units = get_bacnet_value( row['Facility'], row['Meter'], args.hostname, args.port )
 
         # Prepare to print
         value = int( value ) if value else ''

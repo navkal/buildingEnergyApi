@@ -3,7 +3,7 @@
 try:
     import argparse
     import pandas as pd
-    from bacnet_gateway_requests import get_value_and_units
+    from bacnet_gateway_requests import get_bacnet_value
 
     # Get hostname and port of BACnet Gateway
     parser = argparse.ArgumentParser( description='Test BACnet Gateway', add_help=False )
@@ -16,7 +16,7 @@ try:
     #   - Location
     #   - Instance ID of CO2 sensor
     #   - Instance ID of temperature sensor
-    df = pd.read_csv( 'csv/ahs_air.csv', na_filter=False, comment='#' )
+    df = pd.read_csv( '../csv/ahs_air.csv', na_filter=False, comment='#' )
 
     # Output column headings
     print( 'Location,Temperature,Temperature Units,CO2,CO2 Units' )
@@ -25,8 +25,8 @@ try:
     for index, row in df.iterrows():
 
         # Retrieve data
-        temp_value, temp_units = get_value_and_units( row['Facility'], row['Temperature'], args.hostname, args.port )
-        co2_value, co2_units = get_value_and_units( row['Facility'], row['CO2'], args.hostname, args.port )
+        temp_value, temp_units = get_bacnet_value( row['Facility'], row['Temperature'], args.hostname, args.port )
+        co2_value, co2_units = get_bacnet_value( row['Facility'], row['CO2'], args.hostname, args.port )
 
         # Prepare to print
         temp_value = int( temp_value ) if temp_value else ''

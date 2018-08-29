@@ -5,7 +5,7 @@ import pandas as pd
 import time, sys
 import datetime
 
-from bacnet_gateway_requests import get_value_and_units
+from bacnet_gateway_requests import get_bacnet_value
 
 # Get hostname and port of BACnet Gateway
 parser = argparse.ArgumentParser( description='Test BACnet Gateway', add_help=False )
@@ -18,7 +18,7 @@ args = parser.parse_args()
 #   - Feeder
 #   - Instance ID of Power oid
 #   - Instance ID of Energy oid
-df = pd.read_csv( 'csv/dashboard.csv', na_filter=False )
+df = pd.read_csv( '../csv/dashboard.csv', na_filter=False )
 # print( '---Feeder---' )
 # print( df['Feeder'] )
 # print( '---Power---' )
@@ -35,8 +35,8 @@ def ReadAllMeters ():
 	for index, row in df.iterrows():
 
 		# Retrieve data
-		kW_value, kW_units = get_value_and_units( row['Facility'], row['Power'], args.hostname, args.port )
-		kWh_value,kWh_units = get_value_and_units( row['Facility'], row['Energy'], args.hostname, args.port )
+		kW_value, kW_units = get_bacnet_value( row['Facility'], row['Power'], args.hostname, args.port )
+		kWh_value,kWh_units = get_bacnet_value( row['Facility'], row['Energy'], args.hostname, args.port )
 		currentDT = datetime.datetime.now()
 
 		# Prepare to print
