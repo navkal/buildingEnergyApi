@@ -42,3 +42,25 @@ def get_bacnet_value( facility, instance, gateway_hostname, gateway_port, live=F
                 units = dc_data['units']
 
     return value, units
+
+
+# Request multiple values from BACnet Gateway
+def get_bulk( bulk_request, gateway_hostname, gateway_port ):
+
+    bulk_rsp = []
+
+    if isinstance( bulk_request, list ) and len( bulk_request ):
+
+        # Set up request arguments
+        args = {
+            'bulk': json.dumps( bulk_request )
+        }
+
+        # Issue request to HTTP service
+        url = 'http://' + gateway_hostname + ':' + str( gateway_port )
+        gateway_rsp = requests.post( url, data=args )
+
+        # Extract result
+        bulk_rsp = json.loads( gateway_rsp.text )
+
+    return bulk_rsp
