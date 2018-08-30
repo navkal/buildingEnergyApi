@@ -1,9 +1,12 @@
 # Copyright 2018 BACnet Gateway.  All rights reserved.
 
 try:
+    import time
     import argparse
     import pandas as pd
     from bacnet_gateway_requests import get_bacnet_value
+
+    start_time = time.time()
 
     # Get hostname and port of BACnet Gateway
     parser = argparse.ArgumentParser( description='Test BACnet Gateway', add_help=False )
@@ -36,6 +39,8 @@ try:
 
         # Output CSV format
         print( '{0},{1},{2},{3},{4}'.format( row['Label'], temp_value, temp_units, co2_value, co2_units ) )
+
+    print( '\n\nElapsed time: {0} seconds'.format( time.time() - start_time ) )
 
 except KeyboardInterrupt:
     print( 'Bye' )
