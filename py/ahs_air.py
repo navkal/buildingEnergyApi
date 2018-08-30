@@ -40,7 +40,7 @@ try:
         # Output CSV format
         print( '{0},{1},{2},{3},{4}'.format( row['Label'], temp_value, temp_units, co2_value, co2_units ) )
 
-    print( '\n\nElapsed time: {0} seconds'.format( time.time() - start_time ) )
+    print( '\nElapsed time: {0} seconds'.format( round( time.time() - start_time ) ) )
 
 except KeyboardInterrupt:
     print( 'Bye' )
