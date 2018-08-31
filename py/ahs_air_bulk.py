@@ -19,7 +19,7 @@ try:
     #   - Location
     #   - Instance ID of CO2 sensor
     #   - Instance ID of temperature sensor
-    df = pd.read_csv( '../csv/ahs_air.csv', na_filter=False, comment='#', nrows=20 )
+    df = pd.read_csv( '../csv/ahs_air.csv', na_filter=False, comment='#' )
 
     # Initialize empty bulk request
     bulk_rq = []
