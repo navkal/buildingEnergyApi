@@ -16,7 +16,8 @@ try:
 
     # Read spreadsheet into a dataframe.
     # Each row contains the following:
-    #   - Location
+    #   - Label
+    #   - Facility
     #   - Instance ID of CO2 sensor
     #   - Instance ID of temperature sensor
     df = pd.read_csv( '../csv/ahs_air.csv', na_filter=False, comment='#' )
@@ -27,28 +28,34 @@ try:
     # Iterate over the rows of the dataframe, adding elements to the bulk request
     for index, row in df.iterrows():
 
-        # Append items to bulk request
-        bulk_rq.append( { 'facility': row['Facility'], 'instance': row['Temperature'] } )
-        bulk_rq.append( { 'facility': row['Facility'], 'instance': row['CO2'] } )
+        # Append facility/instance pairs to bulk request
+        if row['Temperature']:
+            bulk_rq.append( { 'facility': row['Facility'], 'instance': row['Temperature'] } )
+        if row['CO2']:
+            bulk_rq.append( { 'facility': row['Facility'], 'instance': row['CO2'] } )
 
+    # Issue get-bulk request
     bulk_rsp = get_bulk( bulk_rq, args.hostname, args.port )
-    map = bulk_rsp['rsp_map']
 
+    # Extract map from get-bulk response
+    map = bulk_rsp['rsp_map']
 
     # Output column headings
     print( 'Location,Temperature,Temperature Units,CO2,CO2 Units' )
 
-    # Iterate over the rows of the dataframe, extracting temperature and CO2 values from map
+    # Iterate over the rows of the dataframe, displaying temperature and CO2 values extracted from map
     for index, row in df.iterrows():
 
-        # Prepare to print
+        # Initialize empty display values
         temp_value = ''
         temp_units = ''
         co2_value = ''
         co2_units = ''
 
+        # Get facility of current row
         facility = row['Facility']
 
+        # Try to extract current row's temperature and CO2 values from map
         if facility in map:
 
             instance = str( row['Temperature'] )
