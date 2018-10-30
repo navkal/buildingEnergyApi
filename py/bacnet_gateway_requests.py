@@ -3,9 +3,11 @@
 import requests
 import json
 
+PUBLIC_HOSTNAME = "energize.andoverma.us"
+
 
 # Request present value and units for the supplied instance
-def get_bacnet_value( facility, instance, gateway_hostname, gateway_port, live=False ):
+def get_bacnet_value( facility, instance, gateway_hostname=PUBLIC_HOSTNAME, gateway_port=None, live=False ):
 
     value = None
     units = None
@@ -22,9 +24,8 @@ def get_bacnet_value( facility, instance, gateway_hostname, gateway_port, live=F
         if live:
             args['live'] = True
 
-        # Issue request to HTTP service
-        url = 'http://' + gateway_hostname + ':' + str( gateway_port )
-        gateway_rsp = requests.post( url, data=args )
+        # Issue request to web service
+        gateway_rsp = post_request( gateway_hostname, gateway_port, args )
 
         # Convert JSON response to Python dictionary
         dc_rsp = json.loads( gateway_rsp.text )
@@ -45,7 +46,7 @@ def get_bacnet_value( facility, instance, gateway_hostname, gateway_port, live=F
 
 
 # Request multiple values from BACnet Gateway
-def get_bulk( bulk_request, gateway_hostname, gateway_port ):
+def get_bulk( bulk_request, gateway_hostname=PUBLIC_HOSTNAME, gateway_port=None ):
 
     bulk_rsp = []
 
@@ -56,11 +57,30 @@ def get_bulk( bulk_request, gateway_hostname, gateway_port ):
             'bulk': json.dumps( bulk_request )
         }
 
-        # Issue request to HTTP service
-        url = 'http://' + gateway_hostname + ':' + str( gateway_port )
-        gateway_rsp = requests.post( url, data=args )
+        # Issue request to web service
+        gateway_rsp = post_request( gateway_hostname, gateway_port, args )
 
         # Extract result
         bulk_rsp = json.loads( gateway_rsp.text )
 
     return bulk_rsp
+
+
+# Post request to web service
+def post_request( gateway_hostname, gateway_port, args ):
+
+    # Format URL
+    if ( gateway_hostname == PUBLIC_HOSTNAME ) and ( gateway_port == None ):
+        s = 's'
+        port = ''
+    else:
+        s = ''
+        port = ':' + str( gateway_port )
+
+    url = 'http' + s + '://' + gateway_hostname + port
+
+
+    # Post request
+    gateway_rsp = requests.post( url, data=args )
+
+    return gateway_rsp

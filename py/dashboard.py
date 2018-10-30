@@ -7,11 +7,6 @@ import datetime
 
 from bacnet_gateway_requests import get_bacnet_value
 
-# Get hostname and port of BACnet Gateway
-parser = argparse.ArgumentParser( description='Test BACnet Gateway', add_help=False )
-parser.add_argument( '-h', dest='hostname' )
-parser.add_argument( '-p', dest='port' )
-args = parser.parse_args()
 
 # Read spreadsheet into a dataframe.
 # Each row contains the following:
@@ -35,8 +30,8 @@ def ReadAllMeters ():
 	for index, row in df.iterrows():
 
 		# Retrieve data
-		kW_value, kW_units = get_bacnet_value( row['Facility'], row['Power'], args.hostname, args.port )
-		kWh_value,kWh_units = get_bacnet_value( row['Facility'], row['Energy'], args.hostname, args.port )
+		kW_value, kW_units = get_bacnet_value( row['Facility'], row['Power'] )
+		kWh_value,kWh_units = get_bacnet_value( row['Facility'], row['Energy'] )
 		currentDT = datetime.datetime.now()
 
 		# Prepare to print

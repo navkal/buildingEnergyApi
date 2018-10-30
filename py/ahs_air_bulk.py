@@ -8,12 +8,6 @@ try:
 
     start_time = time.time()
 
-    # Get hostname and port of BACnet Gateway
-    parser = argparse.ArgumentParser( description='Test BACnet Gateway', add_help=False )
-    parser.add_argument( '-h', dest='hostname' )
-    parser.add_argument( '-p', dest='port' )
-    args = parser.parse_args()
-
     # Read spreadsheet into a dataframe.
     # Each row contains the following:
     #   - Label
@@ -35,7 +29,7 @@ try:
             bulk_rq.append( { 'facility': row['Facility'], 'instance': row['CO2'] } )
 
     # Issue get-bulk request
-    bulk_rsp = get_bulk( bulk_rq, args.hostname, args.port )
+    bulk_rsp = get_bulk( bulk_rq )
 
     # Extract map from get-bulk response
     map = bulk_rsp['rsp_map']

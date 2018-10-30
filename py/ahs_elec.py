@@ -8,12 +8,6 @@ try:
 
     start_time = time.time()
 
-    # Get hostname and port of BACnet Gateway
-    parser = argparse.ArgumentParser( description='Test BACnet Gateway', add_help=False )
-    parser.add_argument( '-h', dest='hostname' )
-    parser.add_argument( '-p', dest='port' )
-    args = parser.parse_args()
-
     # Read spreadsheet into a dataframe.
     # Each row contains the following:
     #   - Feeder
@@ -26,7 +20,7 @@ try:
     # Iterate over the rows of the dataframe, getting meter readings for each feeder
     for index, row in df.iterrows():
         # Retrieve data
-        value, units = get_bacnet_value( row['Facility'], row['Meter'], args.hostname, args.port )
+        value, units = get_bacnet_value( row['Facility'], row['Meter'] )
 
         # Prepare to print
         value = int( value ) if value else ''
