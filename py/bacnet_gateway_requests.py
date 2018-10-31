@@ -3,11 +3,12 @@
 import requests
 import json
 
-PUBLIC_HOSTNAME = "energize.andoverma.us"
+PUBLIC_HOSTNAME = 'energize.andoverma.us'
+INTERNAL_PORT = '8000'
 
 
 # Request present value and units for the supplied instance
-def get_bacnet_value( facility, instance, gateway_hostname=PUBLIC_HOSTNAME, gateway_port=None, live=False ):
+def get_bacnet_value( facility, instance, gateway_hostname=None, gateway_port=None, live=False ):
 
     value = None
     units = None
@@ -46,7 +47,7 @@ def get_bacnet_value( facility, instance, gateway_hostname=PUBLIC_HOSTNAME, gate
 
 
 # Request multiple values from BACnet Gateway
-def get_bulk( bulk_request, gateway_hostname=PUBLIC_HOSTNAME, gateway_port=None ):
+def get_bulk( bulk_request, gateway_hostname=None, gateway_port=None ):
 
     bulk_rsp = []
 
@@ -68,17 +69,38 @@ def get_bulk( bulk_request, gateway_hostname=PUBLIC_HOSTNAME, gateway_port=None 
 
 # Post request to web service
 def post_request( gateway_hostname, gateway_port, args ):
+    print( 'h={0} p={1}'.format( gateway_hostname, gateway_port ) )
+
+    # Normalize hostname
+    if not gateway_hostname:
+        gateway_hostname = PUBLIC_HOSTNAME
+
+    # Normalize port
+    gateway_port = str( gateway_port ) if gateway_port else ''
+
+    # Set SSL and port fragments
+    if gateway_hostname == PUBLIC_HOSTNAME:
+
+        if gateway_port:
+            s = ''
+            port = ':' + gateway_port
+        else:
+            s = 's'
+            port = ''
+
+    else:
+
+        s = ''
+
+        if gateway_port:
+            port = ':' + gateway_port
+        else:
+            port = ':' + INTERNAL_PORT
 
     # Format URL
-    if ( gateway_hostname == PUBLIC_HOSTNAME ) and ( gateway_port == None ):
-        s = 's'
-        port = ''
-    else:
-        s = ''
-        port = ':' + str( gateway_port )
-
     url = 'http' + s + '://' + gateway_hostname + port
 
+    print( url )
 
     # Post request
     gateway_rsp = requests.post( url, data=args )
