@@ -69,7 +69,6 @@ def get_bulk( bulk_request, gateway_hostname=None, gateway_port=None ):
 
 # Post request to web service
 def post_request( gateway_hostname, gateway_port, args ):
-    print( 'h={0} p={1}'.format( gateway_hostname, gateway_port ) )
 
     # Normalize hostname
     if not gateway_hostname:
@@ -99,8 +98,6 @@ def post_request( gateway_hostname, gateway_port, args ):
 
     # Format URL
     url = 'http' + s + '://' + gateway_hostname + port
-
-    print( url )
 
     # Post request
     gateway_rsp = requests.post( url, data=args )
