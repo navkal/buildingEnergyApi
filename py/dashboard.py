@@ -5,7 +5,7 @@ import pandas as pd
 import time, sys
 import datetime
 
-from bacnet_gateway_requests import get_bacnet_value
+from building_data_requests import get_value
 
 
 # Read spreadsheet into a dataframe.
@@ -30,8 +30,8 @@ def ReadAllMeters ():
 	for index, row in df.iterrows():
 
 		# Retrieve data
-		kW_value, kW_units = get_bacnet_value( row['Facility'], row['Power'] )
-		kWh_value,kWh_units = get_bacnet_value( row['Facility'], row['Energy'] )
+		kW_value, kW_units = get_value( row['Facility'], row['Power'] )
+		kWh_value,kWh_units = get_value( row['Facility'], row['Energy'] )
 		currentDT = datetime.datetime.now()
 
 		# Prepare to print

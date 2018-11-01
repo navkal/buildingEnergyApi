@@ -4,7 +4,7 @@ try:
     import time
     import argparse
     import pandas as pd
-    from bacnet_gateway_requests import get_bacnet_value
+    from building_data_requests import get_value
 
     start_time = time.time()
 
@@ -20,7 +20,7 @@ try:
     # Iterate over the rows of the dataframe, getting meter readings for each feeder
     for index, row in df.iterrows():
         # Retrieve data
-        value, units = get_bacnet_value( row['Facility'], row['Meter'] )
+        value, units = get_value( row['Facility'], row['Meter'] )
 
         # Prepare to print
         value = int( value ) if value else ''

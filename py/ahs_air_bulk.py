@@ -4,7 +4,7 @@ try:
     import time
     import argparse
     import pandas as pd
-    from bacnet_gateway_requests import get_bulk
+    from building_data_requests import get_bulk
 
     start_time = time.time()
 

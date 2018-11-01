@@ -4,7 +4,7 @@ try:
     import time
     import argparse
     import pandas as pd
-    from bacnet_gateway_requests import get_bacnet_value
+    from building_data_requests import get_value
 
     start_time = time.time()
 
@@ -22,8 +22,8 @@ try:
     for index, row in df.iterrows():
 
         # Retrieve data
-        temp_value, temp_units = get_bacnet_value( row['Facility'], row['Temperature'] )
-        co2_value, co2_units = get_bacnet_value( row['Facility'], row['CO2'] )
+        temp_value, temp_units = get_value( row['Facility'], row['Temperature'] )
+        co2_value, co2_units = get_value( row['Facility'], row['CO2'] )
 
         # Prepare to print
         temp_value = int( temp_value ) if temp_value else ''

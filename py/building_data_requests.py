@@ -8,7 +8,7 @@ INTERNAL_PORT = '8000'
 
 
 # Request present value and units for the supplied instance
-def get_bacnet_value( facility, instance, gateway_hostname=None, gateway_port=None, live=False ):
+def get_value( facility, instance, gateway_hostname=None, gateway_port=None, live=False ):
 
     value = None
     units = None
