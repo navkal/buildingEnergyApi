@@ -31,13 +31,13 @@ def get_bacnet_value( facility, instance, gateway_hostname=None, gateway_port=No
         # Convert JSON response to Python dictionary
         dc_rsp = json.loads( gateway_rsp.text )
 
-        # Extract BACnet response from the dictionary
-        dc_bn_rsp = dc_rsp['bacnet_response']
+        # Extract instance response from the dictionary
+        dc_inst_rsp = dc_rsp['instance_response']
 
-        # Extract result from BACnet response
-        if ( dc_bn_rsp['success'] ):
+        # Extract result from instance response
+        if ( dc_inst_rsp['success'] ):
 
-            dc_data = dc_bn_rsp['data']
+            dc_data = dc_inst_rsp['data']
 
             if dc_data['success']:
                 value = dc_data['presentValue']
