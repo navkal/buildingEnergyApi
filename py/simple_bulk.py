@@ -3,8 +3,8 @@
 from building_data_requests import get_bulk
 
 # Build bulk request
-# - 'facility' and 'instance' fields are used by get_bulk().
-# - 'label' fields are used by us, in printing the response.
+# - 'facility' and 'instance' fields are used by get_bulk()
+# - 'label' fields are used by us, when printing the response
 rq = [  { 'facility': 'ahs', 'instance': '3007360', 'label': 'AHS Main Power' },
         { 'facility': 'ahs', 'instance': '3001489', 'label': 'AHS 351 Temperature' },
         { 'facility': 'ahs', 'instance': '3001477', 'label': 'AHS 351 CO2' }  ]
@@ -16,10 +16,10 @@ bulk_rsp = get_bulk( rq )
 # It is a dictionary with instances as keys
 rsp_instances = bulk_rsp['rsp_map']['ahs']
 
-# Iterate over request; correlate requested items with data in response
+# Iterate over request; correlate each request item with response data
 for rq_item in rq:
 
-    # Get instance from current item
+    # Get instance from current request item
     instance = rq_item['instance']
 
     # Extract response data corresponding to the instance
