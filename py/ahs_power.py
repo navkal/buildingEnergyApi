@@ -12,7 +12,7 @@ try:
     # Each row contains the following:
     #   - Feeder
     #   - Instance ID of electric meter
-    df = pd.read_csv( '../csv/ahs_elec.csv' )
+    df = pd.read_csv( '../csv/ahs_power.csv' )
 
     # Output column headings
     print( 'Feeder,Meter,Units' )

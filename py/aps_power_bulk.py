@@ -13,7 +13,7 @@ try:
     #   - Label
     #   - Facility
     #   - Instance ID of electric meter
-    df = pd.read_csv( '../csv/ahs_elec.csv' )
+    df = pd.read_csv( '../csv/aps_power.csv' )
 
     # Initialize empty bulk request
     bulk_rq = []
