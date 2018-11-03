@@ -11,7 +11,8 @@ try:
 
     # Read spreadsheet into a dataframe.
     # Each row contains the following:
-    #   - Location
+    #   - Label
+    #   - Facility
     #   - Instance ID of CO2 sensor
     #   - Instance ID of temperature sensor
     df = pd.read_csv( '../csv/ahs_air.csv', na_filter=False, comment='#' )
