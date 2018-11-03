@@ -2,7 +2,8 @@
 
 from building_data_requests import get_bulk
 
-# Build bulk request
+# Build bulk request (rq) structured as a list of dictionaries
+# In each dictionary,
 # - 'facility' and 'instance' fields are used by get_bulk()
 # - 'label' fields are used by us, when printing the response
 rq = [  { 'facility': 'ahs', 'instance': '3007360', 'label': 'AHS Main Power' },
