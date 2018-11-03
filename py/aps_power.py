@@ -7,8 +7,12 @@ import numbers
 
 start_time = time.time()
 
-# Load spreadsheet into a dataframe
-df = pd.read_csv( '../csv/aps_power.csv', na_filter=False )
+# Read spreadsheet into a dataframe.
+# Each row contains the following:
+#   - Label
+#   - Facility
+#   - Instance ID of electric meter
+df = pd.read_csv( '../csv/aps_power.csv' )
 
 # Iterate over dataframe, getting values for each row
 for index, row in df.iterrows():
