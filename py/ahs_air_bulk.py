@@ -5,6 +5,7 @@ try:
     import argparse
     import pandas as pd
     from building_data_requests import get_bulk
+    import numbers
 
     start_time = time.time()
 
@@ -56,14 +57,14 @@ try:
             if instance and ( instance in map[facility] ):
                 rsp = map[facility][instance]
                 property = rsp['property']
-                temp_value = int( rsp[property] ) if rsp[property] else ''
+                temp_value = int( rsp[property] ) if isinstance( rsp[property], numbers.Number ) else ''
                 temp_units = rsp['units']
 
             instance = str( row['CO2'] )
             if instance and ( instance in map[facility] ):
                 rsp = map[facility][instance]
                 property = rsp['property']
-                co2_value = int( rsp[property] ) if rsp[property] else ''
+                co2_value = int( rsp[property] ) if isinstance( rsp[property], numbers.Number ) else ''
                 co2_units = rsp['units']
 
         # Output CSV format
