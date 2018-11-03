@@ -5,6 +5,7 @@ try:
     import argparse
     import pandas as pd
     from building_data_requests import get_value
+    import numbers
 
     start_time = time.time()
 
@@ -23,7 +24,7 @@ try:
         value, units = get_value( row['Facility'], row['Meter'] )
 
         # Prepare to print
-        value = int( value ) if value else ''
+        value = int( value ) if isinstance( value, numbers.Number ) else ''
         units = units if units else ''
 
         # Output CSV format
