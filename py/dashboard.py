@@ -4,6 +4,7 @@ import argparse
 import pandas as pd
 import time, sys
 import datetime
+import numbers
 
 from building_data_requests import get_value
 
@@ -35,11 +36,11 @@ def ReadAllMeters ():
 		currentDT = datetime.datetime.now()
 
 		# Prepare to print
-		kW_value = int( kW_value ) if kW_value else ''
+		kW_value = int( kW_value ) if isinstance( kW_value, numbers.Number ) else ''
 		kW_units = kW_units if kW_units else ''
-		kWh_value = int( kWh_value ) if kWh_value else ''
+		kWh_value = int( kWh_value ) if isinstance( kWh_value, numbers.Number ) else ''
 		kWh_units = kWh_units if kWh_units else ''
-		
+
 		# Output CSV format
 		print( '{0},{1},{2},{3},{4},{5}'.format( currentDT.strftime("%Y-%m-%d %H:%M:%S"), row['Label'],kW_value, kW_units, kWh_value, kWh_units ) )
 
