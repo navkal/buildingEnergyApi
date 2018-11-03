@@ -14,14 +14,14 @@ df = pd.read_csv( '../csv/aps_power.csv', na_filter=False )
 for index, row in df.iterrows():
 
     # Retrieve data
-    kW_value, kW_units = get_value( row['Facility'], row['Meter'] )
+    value, units = get_value( row['Facility'], row['Meter'] )
 
     # Prepare to print
-    kW_value = int( kW_value ) if isinstance( kW_value, numbers.Number ) else ''
-    kW_units = kW_units if kW_units else ''
+    value = int( value ) if isinstance( value, numbers.Number ) else ''
+    units = units if units else ''
 
     # Output CSV format
-    print( '{0}: {1} {2}'.format( row['Label'],kW_value, kW_units ) )
+    print( '{0}: {1} {2}'.format( row['Label'], value, units ) )
 
 # Report elapsed time
 elapsed_time = round( ( time.time() - start_time ) * 1000 ) / 1000
