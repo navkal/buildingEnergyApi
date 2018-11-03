@@ -10,7 +10,8 @@ start_time = time.time()
 
 # Read spreadsheet into a dataframe.
 # Each row contains the following:
-#   - Feeder
+#   - Label
+#   - Facility
 #   - Instance ID of electric meter
 df = pd.read_csv( '../csv/ahs_power.csv' )
 
