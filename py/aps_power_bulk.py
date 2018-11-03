@@ -5,6 +5,7 @@ try:
     import argparse
     import pandas as pd
     from building_data_requests import get_bulk
+    import numbers
 
     start_time = time.time()
 
@@ -30,9 +31,6 @@ try:
     # Extract map from get-bulk response
     map = bulk_rsp['rsp_map']
 
-    # Output column headings
-    print( 'Feeder,Meter,Units' )
-
     # Iterate over the rows of the dataframe, displaying meter readings extracted from map
     for index, row in df.iterrows():
 
@@ -50,11 +48,11 @@ try:
             if instance and ( instance in map[facility] ):
                 rsp = map[facility][instance]
                 property = rsp['property']
-                value = int( rsp[property] ) if rsp[property] else ''
+                value = int( rsp[property] ) if isinstance( rsp[property], numbers.Number ) else ''
                 units = rsp['units']
 
         # Output CSV format
-        print( '{0},{1},{2}'.format( row['Label'], value, units ) )
+        print( '{0}: {1} {2}'.format( row['Label'], value, units ) )
 
     # Report elapsed time
     elapsed_time = round( ( time.time() - start_time ) * 1000 ) / 1000
