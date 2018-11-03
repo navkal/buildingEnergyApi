@@ -5,6 +5,7 @@ try:
     import argparse
     import pandas as pd
     from building_data_requests import get_value
+    import numbers
 
     start_time = time.time()
 
@@ -26,9 +27,9 @@ try:
         co2_value, co2_units = get_value( row['Facility'], row['CO2'] )
 
         # Prepare to print
-        temp_value = int( temp_value ) if temp_value else ''
+        temp_value = int( temp_value ) if isinstance( temp_value, numbers.Number ) else ''
         temp_units = temp_units if temp_units else ''
-        co2_value = int( co2_value ) if co2_value else ''
+        co2_value = int( co2_value ) if isinstance( co2_value, numbers.Number ) else ''
         co2_units = co2_units if co2_units else ''
 
         # Output CSV format
