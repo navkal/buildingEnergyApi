@@ -22,12 +22,14 @@ for request in request_list:
 
     # Get facility of current request
     facility = request['facility']
+    # print( 'facility:', facility )
 
     # Look for facility in response map
     if facility in response_map:
 
         # Get instance of current request
         instance = request['instance']
+        # print( 'instance:', instance )
 
         # Get part of response map pertaining to current facility
         response_facility = response_map[facility]
@@ -38,8 +40,11 @@ for request in request_list:
             # Get the response corresponding to current request
             rsp = response_facility[instance]
 
-            # Extract data from the response
+            # Extract property from the response
             property = rsp['property']
+            # print( 'property:', property )
+
+            # Extract value and units from the response
             value = int( rsp[property] ) if isinstance( rsp[property], numbers.Number ) else ''
             units = rsp['units']
 
