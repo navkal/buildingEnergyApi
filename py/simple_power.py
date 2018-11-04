@@ -24,16 +24,18 @@ request_list = [    { 'facility': 'ahs',                'instance': '3007360',  
                     { 'facility': 'west_elementary',    'instance': '3001725',  'label': 'West Elementary' },
                     { 'facility': 'west_middle-12',     'instance': '3027266',  'label': 'West Middle' }  ]
 
+
+# Iterate through list of requests
 for request in request_list:
 
-    # Get next value
+    # Issue next request
     value, units = get_value( request['facility'], request['instance'] )
 
     # Prepare to print results
     value = int( value ) if isinstance( value, numbers.Number ) else ''
     units = units if units else ''
 
-    # Output CSV format
+    # Output result
     print( '{0}: {1} {2}'.format( request['label'], value, units ) )
 
 # Report elapsed time

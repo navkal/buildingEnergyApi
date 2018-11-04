@@ -24,7 +24,7 @@ for index, row in df.iterrows():
     value = int( value ) if isinstance( value, numbers.Number ) else ''
     units = units if units else ''
 
-    # Output CSV format
+    # Output result
     print( '{0}: {1} {2}'.format( row['Label'], value, units ) )
 
 # Report elapsed time
