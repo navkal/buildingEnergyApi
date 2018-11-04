@@ -4,7 +4,7 @@
 #
 # Initialize list of requests.
 # In each request,
-# - 'facility' and 'instance' fields are used by get_value()
+# - 'facility' and 'instance' fields are used by get_value() or get_bulk()
 # - 'label' fields are used to print the result
 #
 request_list = [    { 'facility': 'ahs',                'instance': '3007360',  'label': 'Andover High' },
@@ -16,4 +16,3 @@ request_list = [    { 'facility': 'ahs',                'instance': '3007360',  
                     { 'facility': 'south',              'instance': '3004042',  'label': 'South' },
                     { 'facility': 'west_elementary',    'instance': '3001725',  'label': 'West Elementary' },
                     { 'facility': 'west_middle-12',     'instance': '3027266',  'label': 'West Middle' }  ]
-
