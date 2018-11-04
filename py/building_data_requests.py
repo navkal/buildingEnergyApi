@@ -1,4 +1,4 @@
-# Copyright 2018 BACnet Gateway.  All rights reserved.
+# Copyright 2018 Building Energy Gateway.  All rights reserved.
 
 import requests
 import json
@@ -46,7 +46,7 @@ def get_value( facility, instance, gateway_hostname=None, gateway_port=None, liv
     return value, units
 
 
-# Request multiple values from BACnet Gateway
+# Request multiple values from Building Energy Gateway
 def get_bulk( bulk_request, gateway_hostname=None, gateway_port=None ):
 
     bulk_rsp = []
