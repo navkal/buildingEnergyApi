@@ -1,35 +1,11 @@
 # Copyright 2018 Building Energy Gateway.  All rights reserved.
 
 import time
-import argparse
-import pandas as pd
-from building_data_requests import get_bulk
 import numbers
-
-
-start_time = time.time()
-
+from building_data_requests import get_bulk
+from simple_power_request import request_list
 
 start_time = time.time()
-
-
-#
-# Initialize list of requests.
-# In each request,
-# - 'facility' and 'instance' fields are used by get_value()
-# - 'label' fields are used to print the result
-#
-request_list = [    { 'facility': 'ahs',                'instance': '3007360',  'label': 'Andover High' },
-                    { 'facility': 'bancroft-18',        'instance': '3000076',  'label': 'Bancroft' },
-                    { 'facility': 'doherty',            'instance': '3007063',  'label': 'Doherty' },
-                    { 'facility': 'woodhill-09',        'instance': '3001085',  'label': 'High Plain & Wood Hill' },
-                    { 'facility': 'sanborn',            'instance': '3002006',  'label': 'Sanborn' },
-                    { 'facility': 'shawsheen',          'instance': '3002012',  'label': 'Shawsheen' },
-                    { 'facility': 'south',              'instance': '3004042',  'label': 'South' },
-                    { 'facility': 'west_elementary',    'instance': '3001725',  'label': 'West Elementary' },
-                    { 'facility': 'west_middle-12',     'instance': '3027266',  'label': 'West Middle' }  ]
-
-
 
 # Issue get-bulk request
 bulk_rsp = get_bulk( request_list )
