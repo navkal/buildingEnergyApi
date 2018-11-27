@@ -13,7 +13,8 @@ def get_value( facility, instance, gateway_hostname=None, gateway_port=None, liv
     value = None
     units = None
 
-    if str( instance ).isdigit() and int( instance ) > 0:
+    # Ensure that instance is either a positive integer or non-empty string
+    if ( str( instance ).isdigit() and ( int( instance ) > 0 ) ) or ( not str( instance ).isdigit() and ( len( str( instance ).strip() ) > 0 ) ):
         # Instance appears to be valid
 
         # Set up request arguments
@@ -41,6 +42,11 @@ def get_value( facility, instance, gateway_hostname=None, gateway_port=None, liv
 
             if dc_data['success']:
                 value = dc_data['presentValue']
+                try:
+                    value = float( value )
+                except ValueError:
+                    pass
+
                 units = dc_data['units']
 
     return value, units
