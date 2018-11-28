@@ -1,7 +1,6 @@
 # Copyright 2018 Building Energy Gateway.  All rights reserved.
 
 import time
-import argparse
 import pandas as pd
 from building_data_requests import get_value
 import numbers

@@ -1,6 +1,5 @@
 # Copyright 2018 Building Energy Gateway.  All rights reserved.
 
-import argparse
 import pandas as pd
 import time, sys
 import datetime

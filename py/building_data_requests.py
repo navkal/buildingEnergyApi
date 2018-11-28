@@ -42,11 +42,6 @@ def get_value( facility, instance, gateway_hostname=None, gateway_port=None, liv
 
             if dc_data['success']:
                 value = dc_data['presentValue']
-                try:
-                    value = float( value )
-                except ValueError:
-                    pass
-
                 units = dc_data['units']
 
     return value, units
@@ -69,23 +64,6 @@ def get_bulk( bulk_request, gateway_hostname=None, gateway_port=None ):
 
         # Extract result
         bulk_rsp = json.loads( gateway_rsp.text )
-
-        # Attempt to convert values to float
-        for el in bulk_rsp['rsp_list']:
-            if el['success']:
-                try:
-                    el[el['property']] = float( el[el['property']] )
-                except ValueError:
-                    pass
-
-        for facility in bulk_rsp['rsp_map']:
-            for instance in bulk_rsp['rsp_map'][facility]:
-                el = bulk_rsp['rsp_map'][facility][instance]
-                if el['success']:
-                    try:
-                        el[el['property']] = float( el[el['property']] )
-                    except ValueError:
-                        pass
 
     return bulk_rsp
 
