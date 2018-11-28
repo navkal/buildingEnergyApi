@@ -23,8 +23,8 @@ try:
     for index, row in df.iterrows():
 
         # Retrieve data
-        temp_value, temp_units = get_value( row['Facility'], row['Temperature'], 'localhost', 8000 )
-        co2_value, co2_units = get_value( row['Facility'], row['CO2'], 'localhost', 8000 )
+        temp_value, temp_units = get_value( row['Facility'], row['Temperature'] )
+        co2_value, co2_units = get_value( row['Facility'], row['CO2'] )
 
         # Prepare to print
         temp_value = int( temp_value ) if isinstance( temp_value, numbers.Number ) else ''
