@@ -101,6 +101,12 @@ def post_request( gateway_hostname, gateway_port, args ):
     url = 'http' + s + '://' + gateway_hostname + port
 
     # Post request
-    gateway_rsp = requests.post( url, data=args )
+    try:
+        gateway_rsp = requests.post( url, data=args )
+    except requests.exceptions.SSLError:
+        # This is a special case which occurs if SSL certificate has expired.
+        # Retry without SSL.
+        # Works only if ports.conf has been set to listen on port 80.
+        gateway_rsp = post_request( gateway_hostname, '80', args )
 
     return gateway_rsp
